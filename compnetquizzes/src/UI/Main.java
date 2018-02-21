@@ -19,9 +19,8 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/StartAppView.fxml"));
         Parent root = loader.load();
         StartAppController controller = loader.getController();
-        System.out.println(GlobalVars.PATHTOPROJ);
 
-        IRepository repository = new Repository(GlobalVars.PATHTOPROJ + "/Data/questions.data");
+        IRepository repository = new Repository(GlobalVars.PATHTOPROJ + "/Data/questions.data");//TODO refactor
         IQuestionsManager questionsManager = new QuestionsManager(repository);
 
         controller.setQuestionsManager(questionsManager);

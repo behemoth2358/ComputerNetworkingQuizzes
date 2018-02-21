@@ -55,7 +55,7 @@ public class ResultController implements Initializable {
                 "Computer Networks Quiz",
                 "Question #" + questionIndex,
                 questionModel.toString() +
-                        "\nYour answer:" + quizManager.getUserAnswer(questionIndex) +
+                        "\nYour answer: " + quizManager.getUserAnswer(questionIndex) +
                         "\nCorrect answer: " + questionModel.getAnswer(),
                 500,
                 400

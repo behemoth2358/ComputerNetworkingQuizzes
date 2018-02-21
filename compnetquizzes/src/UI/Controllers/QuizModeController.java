@@ -131,7 +131,7 @@ public class QuizModeController implements Initializable {
         ArrayList<String> attachmentPaths = questionModel.getAttachmentsPath();
         attachmentsListView.setItems(FXCollections.observableArrayList(attachmentPaths));
         if (attachmentPaths.size() > 0) {
-            attachmentImageView.setImage(new Image("file:" + GlobalVars.PATHTOPROJ + "/Data/Attachments/" + attachmentPaths.get(0)));
+            attachmentImageView.setImage(new Image("file:" + GlobalVars.PATHTOPROJ + "/Data/Attachments/" + attachmentPaths.get(0))); //TODO refactor
         }
 
         userAnswerTextArea.clear();
