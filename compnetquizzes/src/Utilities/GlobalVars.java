@@ -7,7 +7,7 @@ public class GlobalVars {
         return ourInstance;
     }
 
-    public static final String PATHTOPROJ = System.getProperty("user.dir") + "/src";
+    public static final String PATHTOPROJ = "/home/bogdanboboc97/Projects/aspecte_pragmatice/ComputerNetworkingQuizzes/compnetquizzes/src";
 
     private GlobalVars() {
     }

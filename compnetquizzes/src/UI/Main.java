@@ -15,15 +15,18 @@ import Repository.Repository;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
+        Runtime.getRuntime().exec("git show | grep -o \"commit [^ ]*\" > git_id.data");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/StartAppView.fxml"));
         Parent root = loader.load();
         StartAppController controller = loader.getController();
 
-        IRepository repository = new Repository(GlobalVars.PATHTOPROJ + "/Data/questions.data");//TODO refactor
+        IRepository repository = new Repository(GlobalVars.PATHTOPROJ + "/Data/questions.data");
         IQuestionsManager questionsManager = new QuestionsManager(repository);
 
         controller.setQuestionsManager(questionsManager);
+
+
 
         primaryStage.setTitle("Computer Networks Quizzes");
         primaryStage.setScene(new Scene(root));
