@@ -4,6 +4,7 @@ import Interfaces.IMessageBox;
 import Interfaces.IQuestionsManager;
 import UI.Messages.MessageBox;
 import UI.Quiz;
+import Utilities.LogHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,6 +32,7 @@ public class StartAppController implements Initializable {
 
             new Quiz().show(questionsManager, noOfQuestions);
         } catch (Exception e) {
+            LogHandler.Instance.LogError(e);
             IMessageBox message = new MessageBox("Computer Network Quizzes", "CompNet", "Invalid no. of questions.");
             message.show();
         }

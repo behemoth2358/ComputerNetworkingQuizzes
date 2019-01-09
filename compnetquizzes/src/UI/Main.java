@@ -6,18 +6,14 @@ import Managers.QuestionsManager;
 import UI.Controllers.StartAppController;
 import Utilities.CommitDetails;
 import Utilities.CommitDetailsHandler;
-import Utilities.GlobalVars;
+import Utilities.GlobalConstants;
+import Utilities.LogHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Repository.Repository;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
 
 public class Main extends Application {
 
@@ -28,7 +24,7 @@ public class Main extends Application {
         Parent root = loader.load();
         StartAppController controller = loader.getController();
 
-        IRepository repository = new Repository(GlobalVars.PATHTOPROJ + "/Data/questions.data");
+        IRepository repository = new Repository(GlobalConstants.PATHTOPROJ + GlobalConstants.QUESTIONS_FILE);
         IQuestionsManager questionsManager = new QuestionsManager(repository);
 
         controller.setQuestionsManager(questionsManager);
@@ -36,6 +32,8 @@ public class Main extends Application {
         primaryStage.setTitle("Computer Networks Quizzes - " + new CommitDetails().CommitId);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+        LogHandler.Instance.LogInfo("Application started successfully!");
     }
 
 

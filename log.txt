@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-01-09T22:28:05</date>
+  <millis>1547065685863</millis>
+  <sequence>0</sequence>
+  <logger>Computer networking quizzes</logger>
+  <level>INFO</level>
+  <class>Utilities.LogHandler</class>
+  <method>LogInfo</method>
+  <thread>13</thread>
+  <message>Application started successfully!</message>
+</record>
+</log>

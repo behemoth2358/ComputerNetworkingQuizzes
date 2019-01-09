@@ -3,7 +3,7 @@ package UI.Controllers;
 import Interfaces.IQuestionModel;
 import Interfaces.IQuizManager;
 import UI.Result;
-import Utilities.GlobalVars;
+import Utilities.GlobalConstants;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -89,7 +89,7 @@ public class QuizModeController implements Initializable {
     @FXML public ListView<String> attachmentsListView;
 
     @FXML public void attachmentsListView_onMouseClicked() {
-        attachmentImageView.setImage(new Image("file:" + GlobalVars.PATHTOPROJ + "/Data/Attachments/" + attachmentsListView.getSelectionModel().getSelectedItem()));
+        attachmentImageView.setImage(new Image("file:" + GlobalConstants.PATHTOPROJ + "/Data/Attachments/" + attachmentsListView.getSelectionModel().getSelectedItem()));
     }
 
     @FXML public TextArea questionStatementTextArea;
@@ -131,7 +131,7 @@ public class QuizModeController implements Initializable {
         ArrayList<String> attachmentPaths = questionModel.getAttachmentsPath();
         attachmentsListView.setItems(FXCollections.observableArrayList(attachmentPaths));
         if (attachmentPaths.size() > 0) {
-            attachmentImageView.setImage(new Image("file:" + GlobalVars.PATHTOPROJ + "/Data/Attachments/" + attachmentPaths.get(0))); //TODO refactor
+            attachmentImageView.setImage(new Image("file:" + GlobalConstants.PATHTOPROJ + "/Data/Attachments/" + attachmentPaths.get(0))); //TODO refactor
         }
 
         userAnswerTextArea.clear();

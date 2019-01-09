@@ -13,6 +13,4 @@ public interface IQuestionModel {
     ArrayList<String> getAttachmentsPath();
 
     String getAnswer();
-
-    boolean checkAnswer(String userAnswer);
 }

@@ -15,7 +15,7 @@ public class CommitDetailsHandler {
                 return br.readLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LogHandler.Instance.LogError(e);
         }
 
         return null;
@@ -26,10 +26,10 @@ public class CommitDetailsHandler {
         sb.append(commitId);
         sb.append("\";}");
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GlobalVars.PATHTOPROJ + "/Utilities/CommitDetails.java"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GlobalConstants.PATHTOPROJ + "/Utilities/CommitDetails.java"))) {
             bw.write(sb.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            LogHandler.Instance.LogError(e);
         }
     }
 

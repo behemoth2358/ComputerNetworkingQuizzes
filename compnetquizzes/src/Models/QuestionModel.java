@@ -46,30 +46,6 @@ public class QuestionModel implements IQuestionModel {
     }
 
     @Override
-    public boolean checkAnswer(String userAnswer) {
-        userAnswer = userAnswer.replace(" ", "");
-        userAnswer = userAnswer.replace("\n", "");
-
-        String[] userChoices = userAnswer.split(",");
-        String[] correctChoices = answer.split("\\s*,\\s*");
-
-        Arrays.sort(userChoices);
-        Arrays.sort(correctChoices);
-
-        if (correctChoices.length != userChoices.length) {
-            return false;
-        }
-
-        for(int i = 0; i < correctChoices.length; i++) {
-            if (!correctChoices[i].equalsIgnoreCase(userChoices[i])) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    @Override
     public String toString() {
         StringBuilder str = new StringBuilder(statement + "\n");
 

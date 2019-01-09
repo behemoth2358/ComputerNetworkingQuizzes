@@ -8,18 +8,19 @@ import Models.GradeModel;
 import Utilities.Triple;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class QuizManager implements IQuizManager {
     private IRepository repository;
-    private ArrayList<Integer> questionsIndexes;
+    private ArrayList<Integer> questionsIndices;
     private ArrayList<String> userAnswers;
 
-    public QuizManager(IRepository repository, ArrayList<Integer> questionsIndexes) {
+    public QuizManager(IRepository repository, ArrayList<Integer> questionsIndices) {
         this.repository = repository;
-        this.questionsIndexes = questionsIndexes;
+        this.questionsIndices = questionsIndices;
 
-        userAnswers = new ArrayList<>(Collections.nCopies(questionsIndexes.size(), ""));
+        userAnswers = new ArrayList<>(Collections.nCopies(questionsIndices.size(), ""));
     }
 
     @Override
@@ -30,33 +31,64 @@ public class QuizManager implements IQuizManager {
     @Override
     public IGradeModel evaluate() {
         ArrayList<IQuestionModel> questions = repository.getQuestions();
-        Integer totalSum = 0;
+        int totalSum = 0;
+        int userScore = 0;
+        
+        for (int i = 0; i < questionsIndices.size(); i++) {
+            String userAnswer = userAnswers.get(i);
 
-        Integer userScore = 0;
-        for (int i = 0; i < questionsIndexes.size(); i++) {
-            IQuestionModel question = questions.get(questionsIndexes.get(i));
+            if (userAnswer == null) continue;
+
+            IQuestionModel question = questions.get(questionsIndices.get(i));
             totalSum += question.getPoints();
 
-            if (userAnswers.get(i) == null) continue;
-
-            userScore += (question.checkAnswer(userAnswers.get(i)) ? question.getPoints() : -question.getPoints());
+            userScore += (checkAnswer(question, userAnswer) ? question.getPoints() : -question.getPoints());
         }
 
-        Double grade = 10.0 * (double)userScore / totalSum;
+        Double grade = computeGrade(userScore, totalSum);
 
         return new GradeModel(grade, userScore, totalSum);
     }
 
+    private Double computeGrade(int userScore, int totalSum) {
+        return 10.0 * (double)userScore / totalSum;
+    }
+
+    private boolean checkAnswer(IQuestionModel question, String userAnswer) {
+        userAnswer = userAnswer.replace(" ", "");
+        userAnswer = userAnswer.replace("\n", "");
+
+        String[] userChoices = computeChoices(userAnswer);
+        String[] correctChoices = computeChoices(question.getAnswer());
+
+        Arrays.sort(userChoices);
+        Arrays.sort(correctChoices);
+
+        if (correctChoices.length != userChoices.length) return false;
+
+        for(int i = 0; i < correctChoices.length; i++) {
+            if (!correctChoices[i].equalsIgnoreCase(userChoices[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private String[] computeChoices(String answer) {
+        return answer.split("\\s*,\\s*");
+    }
+
     @Override
     public IQuestionModel getQuestionByIndex(int index) {
-        int questionIndex = questionsIndexes.get(index);
+        int questionIndex = questionsIndices.get(index);
 
         return repository.getQuestions().get(questionIndex);
     }
 
     @Override
     public Integer getNoOfQuestions() {
-        return questionsIndexes.size();
+        return questionsIndices.size();
     }
 
     @Override
@@ -65,14 +97,14 @@ public class QuizManager implements IQuizManager {
 
         ArrayList<Triple<String, String, String>> questionsStats = new ArrayList<>();
 
-        for(int index = 0; index < questionsIndexes.size(); index++) {
-            int questionIndex = questionsIndexes.get(index);
+        for(int index = 0; index < questionsIndices.size(); index++) {
+            int questionIndex = questionsIndices.get(index);
             IQuestionModel question = questions.get(questionIndex);
 
             String status = "Unanswered";
 
-            if (userAnswers.get(index) != null && userAnswers.get(index) != "") {
-                status = (question.checkAnswer(userAnswers.get(index)) ? "Correct" : "Incorrect");
+            if (userAnswers.get(index) != null && userAnswers.get(index).length() > 0) {
+                status = (checkAnswer(question, userAnswers.get(index)) ? "Correct" : "Incorrect");
             }
 
             questionsStats.add(

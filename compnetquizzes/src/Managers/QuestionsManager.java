@@ -11,18 +11,15 @@ import java.util.stream.IntStream;
 
 public class QuestionsManager implements IQuestionsManager {
     private IRepository repository;
-    private Random random = new Random();
 
     public QuestionsManager(IRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public ArrayList<Integer> computeQuizQuestions(Integer nrOfQuestions) throws CloneNotSupportedException {
-        ArrayList<IQuestionModel> questions = repository.getQuestions();
-
+    public ArrayList<Integer> computeQuizQuestions(Integer nrOfQuestions) {
         ArrayList<Integer> questionsIndexes = new ArrayList<>();
-        IntStream.range(0, questions.size()).forEach(questionsIndexes::add);
+        IntStream.range(0, repository.getQuestions().size()).forEach(questionsIndexes::add);
 
         Collections.shuffle(questionsIndexes);
 
