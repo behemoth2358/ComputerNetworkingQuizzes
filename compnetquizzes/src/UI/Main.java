@@ -4,6 +4,8 @@ import Interfaces.IQuestionsManager;
 import Interfaces.IRepository;
 import Managers.QuestionsManager;
 import UI.Controllers.StartAppController;
+import Utilities.CommitDetails;
+import Utilities.CommitDetailsHandler;
 import Utilities.GlobalVars;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +14,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Repository.Repository;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Runtime.getRuntime().exec("git show | grep -o \"commit [^ ]*\" > git_id.data");
+        CommitDetailsHandler.SetCommitId();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/StartAppView.fxml"));
         Parent root = loader.load();
         StartAppController controller = loader.getController();
@@ -26,9 +33,7 @@ public class Main extends Application {
 
         controller.setQuestionsManager(questionsManager);
 
-
-
-        primaryStage.setTitle("Computer Networks Quizzes");
+        primaryStage.setTitle("Computer Networks Quizzes - " + new CommitDetails().CommitId);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

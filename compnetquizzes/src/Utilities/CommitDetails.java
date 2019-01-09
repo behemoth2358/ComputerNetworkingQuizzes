@@ -1,0 +1,1 @@
+package Utilities;public class CommitDetails{public String CommitId = "null";}
