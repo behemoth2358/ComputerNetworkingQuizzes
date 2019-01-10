@@ -11,9 +11,9 @@ public class CommitDetailsHandler {
                     )
                 )
         ) {
-            if (br.ready()) {
-                return br.readLine();
-            }
+
+            return br.readLine();
+
         } catch (IOException e) {
             LogHandler.Instance.LogError(e);
         }

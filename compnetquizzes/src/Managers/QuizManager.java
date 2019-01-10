@@ -37,10 +37,10 @@ public class QuizManager implements IQuizManager {
         for (int i = 0; i < questionsIndices.size(); i++) {
             String userAnswer = userAnswers.get(i);
 
-            if (userAnswer == null) continue;
-
             IQuestionModel question = questions.get(questionsIndices.get(i));
             totalSum += question.getPoints();
+
+            if (userAnswer == null) continue;
 
             userScore += (checkAnswer(question, userAnswer) ? question.getPoints() : -question.getPoints());
         }
@@ -98,13 +98,13 @@ public class QuizManager implements IQuizManager {
         ArrayList<Triple<String, String, String>> questionsStats = new ArrayList<>();
 
         for(int index = 0; index < questionsIndices.size(); index++) {
-            int questionIndex = questionsIndices.get(index);
-            IQuestionModel question = questions.get(questionIndex);
+            IQuestionModel question = questions.get(questionsIndices.get(index));
+            String userAnswer = userAnswers.get(index);
 
             String status = "Unanswered";
 
-            if (userAnswers.get(index) != null && userAnswers.get(index).length() > 0) {
-                status = (checkAnswer(question, userAnswers.get(index)) ? "Correct" : "Incorrect");
+            if (userAnswer != null && userAnswer.length() > 0) {
+                status = (checkAnswer(question, userAnswer) ? "Correct" : "Incorrect");
             }
 
             questionsStats.add(

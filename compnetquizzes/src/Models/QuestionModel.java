@@ -3,7 +3,6 @@ package Models;
 import Interfaces.IQuestionModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class QuestionModel implements IQuestionModel {
     private final String statement;

@@ -2,14 +2,14 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2019-01-09T22:28:05</date>
-  <millis>1547065685863</millis>
+  <date>2019-01-10T08:01:05</date>
+  <millis>1547100065596</millis>
   <sequence>0</sequence>
   <logger>Computer networking quizzes</logger>
   <level>INFO</level>
   <class>Utilities.LogHandler</class>
   <method>LogInfo</method>
-  <thread>13</thread>
+  <thread>15</thread>
   <message>Application started successfully!</message>
 </record>
 </log>
